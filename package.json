@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
-
   },
   "repository": {
     "type": "git",
@@ -17,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/NickSigurdsson/Trading-Buddy-api/issues"
   },
-  "homepage": "https://github.com/NickSigurdsson/Trading-Buddy-api#readme"
+  "homepage": "https://github.com/NickSigurdsson/Trading-Buddy-api#readme",
+  "dependencies": {
+    "axios": "^1.2.0"
+  }
 }
