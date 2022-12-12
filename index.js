@@ -18,7 +18,7 @@ const calendarRoute = require('./routes/calendarRoute');
 // Routes used for different API calls
 app.use('/',homepageRoute);
 app.use('/dashboard',dashboardRoute);
-app.use('/inventory',calendarRoute);
+app.use('/calendar',calendarRoute);
 
 app.listen(PORT,()=>{
     console.log(`app is litening to port ${PORT}`);
