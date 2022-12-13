@@ -9,6 +9,6 @@ exports.currentEvent = async (req,res) => {
         console.log(response.data);
     } catch (err) {
         res.status(400).send(`Error retrieving Warehouses: ${err}`);
-    console.log('test')
+        console.log(err);
     }
 }
