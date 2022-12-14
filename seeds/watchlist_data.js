@@ -8,11 +8,11 @@ exports.seed = async function(knex) {
   await knex('watchlist').insert([
     {
       id: 'ade0a47b-cee6-4693-b4cd-a7e6cb25h4b7',
-      ticker: 'AALI',
+      ticker: 'AMZN',
     },
     {
       id: 'bb1491eb-30e6-4728-a5fa-72f89feas622',
-      ticker: 'BBCA',
+      ticker: 'META',
     },
   ]);
 };
