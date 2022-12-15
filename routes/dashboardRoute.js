@@ -16,5 +16,8 @@ router
 router
     .route('/news')
     .get(dashboardController.currentNews)
+router
+    .route('/search')
+    .get(dashboardController.searchData)
 
 module.exports = router; 

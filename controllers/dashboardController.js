@@ -9,19 +9,20 @@ exports.watchlist = async (req,res) => {
             "id",
             "ticker",
         );
-        const watchlistDataTicker = watchlistData[0].ticker
-        // // https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MMAT&outputsize=compact&apikey=3NSM9679F4Z9LTNT
-        const axiosResponse = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${watchlistDataTicker}&outputsize=compact&apikey=${API_ALPHA_VANTAGE}`);
-        const axiosData = axiosResponse.data;
-        const latestStockPrice = axiosData['Time Series (Daily)'][key]['1. open'];
-       
-        // for (let i=0;i<watchlistData.length;i++){
-        //     // this is how to grab the ticker for each item in the list
-        // }
-        // console.log(axiosResponse);
-        // console.log(watchlistData);
 
-        res.status(200).json(latestStockPrice);
+        const latestStockPrice = [];
+        for (let i=0;i<watchlistData.length;i++){
+            // this is how to grab the ticker for each item in the list
+            const watchlistDataTicker = watchlistData[i].ticker
+            // // https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MMAT&outputsize=compact&apikey=3NSM9679F4Z9LTNT
+            const axiosResponse = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${watchlistDataTicker}&outputsize=compact&apikey=${API_ALPHA_VANTAGE}`);
+            const axiosData = axiosResponse.data;
+            const stockPriceList = Object.values(axiosData)[1];
+            latestStockPrice.push(Object.values(stockPriceList)[0]['4. close']);
+            watchlistData[i].price = latestStockPrice[i];
+        }
+
+        res.status(200).json(watchlistData);
         } catch (err) {
         res.status(400).send(`Error retrieving Watchlist: ${err}`);
     };
@@ -33,6 +34,19 @@ exports.portfolio = async (req,res) => {
             "id",
             "ticker",
         );
+
+        const latestStockPrice = [];
+        for (let i=0;i<portfolioData.length;i++){
+            // this is how to grab the ticker for each item in the list
+            const portfolioDataTicker = portfolioData[i].ticker
+            // // https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MMAT&outputsize=compact&apikey=3NSM9679F4Z9LTNT
+            const axiosResponse = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${portfolioDataTicker}&outputsize=compact&apikey=${API_ALPHA_VANTAGE}`);
+            const axiosData = axiosResponse.data;
+            const stockPriceList = Object.values(axiosData)[1];
+            latestStockPrice.push(Object.values(stockPriceList)[0]['4. close']);
+            portfolioData[i].price = latestStockPrice[i];
+        }
+
         res.status(200).json(portfolioData);
         } catch (err) {
         res.status(400).send(`Error retrieving Portfolio: ${err}`);
@@ -47,6 +61,19 @@ exports.currentNews = async (req,res) => {
         // SEND IS LIKE A RETURN, IF YOU DON'T DO IT IT IT WILL GIVE YOU AN ERROR
         res.json(response.data.data);
         // console.log(response.data.data);
+    } catch (err) {
+        res.status(400).send(`Error retrieving Warehouses: ${err}`);
+    }
+}
+
+exports.searchData = async (req,res) => {
+    // input from front end (endpoint used): http://localhost:8080/dashboard/search
+    // in phase 2, we will have a variable here that will continously update the api call so that we can type anything into the bar, not just ba.
+    try{
+        const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=BA&apikey=${API_ALPHA_VANTAGE}`);
+        const data = response.data;
+        const searchResponse = data["bestMatches"];
+        res.json(searchResponse);
     } catch (err) {
         res.status(400).send(`Error retrieving Warehouses: ${err}`);
     }
