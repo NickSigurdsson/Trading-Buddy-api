@@ -55,7 +55,7 @@ exports.portfolio = async (req,res) => {
 
 exports.currentNews = async (req,res) => {
     // input from front end (endpoint used): http://localhost:8080/dashboard/news
-    const newsListParameter = 'symbols=TSLA';
+    const newsListParameter = 'symbols=MMAT';
     try{
         const response = await axios.get(`https://api.marketaux.com/v1/news/all?${newsListParameter}&filter_entities=true&language=en&limit=3&api_token=${API_MARKETAUX}`);
         // SEND IS LIKE A RETURN, IF YOU DON'T DO IT IT IT WILL GIVE YOU AN ERROR
