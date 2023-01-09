@@ -23,7 +23,7 @@ Backend: Express, node.js, MySQL
 Clone the project
 
 ```bash
-  git clone https://github.com/NickSigurdsson/Trading-Buddy-client.git
+  git clone https://github.com/NickSigurdsson/Trading-Buddy-api.git
 ```
 
 Go to the project directory
