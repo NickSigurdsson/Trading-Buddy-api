@@ -62,7 +62,7 @@ exports.currentNews = async (req,res) => {
         res.json(response.data.data);
         // console.log(response.data.data);
     } catch (err) {
-        res.status(400).send(`Error retrieving Warehouses: ${err}`);
+        res.status(400).send(`Error retrieving News: ${err}`);
     }
 }
 
