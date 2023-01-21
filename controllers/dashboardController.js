@@ -10,6 +10,7 @@ exports.watchlist = async (req,res) => {
             "id",
             "ticker",
         );
+        console.log(watchlistData);
 
         const latestStockPrice = [];
         for (let i=0;i<watchlistData.length;i++){
